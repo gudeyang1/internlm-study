@@ -28,32 +28,14 @@ pip install streamlit==1.37.0
 
 ## Cli Demo 部署 InternLM2-Chat-1.8B 模型
 
-首先，我们创建一个目录，用于存放我们的代码。并创建一个 `cli_demo.py`。
+首先创建一个目录，用于存放我们的代码。并创建一个 `cli_demo.py`。
 
 ```bash
 mkdir -p /root/demo
 touch /root/demo/cli_demo.py
 ```
 
-然后，我们将下面的代码复制到 `cli_demo.py` 中。
-
-## 模型下载
-Intern的开发机不需要下载模型, 使用挂载的模型文件即可
-```python
-#shell中运行
-pip install modelscope
-pip install transformers
-mkdir -p /root/share/new_models/
-
-#在Python脚本中运行
-import torch
-from modelscope import snapshot_download, AutoModel, AutoTokenizer
-import os
-model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-chat-1_8b', cache_dir='/root/share/new_models/', revision='master')
-```
-
-
-
+然后将下面的代码复制到 `cli_demo.py` 中。
 ```python
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -87,30 +69,47 @@ while True:
             length = len(response)
 ```
 
-接下来，我们便可以通过 `python /root/demo/cli_demo.py` 来启动我们的 Demo。
+## 模型下载
+Intern的开发机不需要下载模型, 使用挂载的模型文件即可
+```python
+#shell中运行
+pip install modelscope
+pip install transformers
+mkdir -p /root/share/new_models/
+
+#在Python脚本中运行
+import torch
+from modelscope import snapshot_download, AutoModel, AutoTokenizer
+import os
+model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-chat-1_8b', cache_dir='/root/share/new_models/', revision='master')
+```
+
+
+
+接下来就可以通过 `python /root/demo/cli_demo.py` 来启动我们的 Demo。
 
 ![alt text](./images/image.png)
 
 
 ## Streamlit Web Demo 部署 InternLM2-Chat-1.8B 模型
 
-在本节中，我们将演示如何使用 Streamlit 部署 InternLM2-Chat-1.8B 模型。
+Streamlit 部署 InternLM2-Chat-1.8B 模型。
 
-我们执行如下代码来把本教程仓库 clone 到本地，以执行后续的代码。
+拉取代码
 
 ```bash
 cd /root/demo
 git clone https://github.com/InternLM/Tutorial.git
 ```
 
-然后，我们执行如下代码来启动一个 Streamlit 服务。
+启动
 
 ```bash
 cd /root/demo
 streamlit run /root/demo/Tutorial/tools/streamlit_demo.py --server.address 127.0.0.1 --server.port 6006
 ```
 
-接下来，我们在**本地**的 vsCode 将端口映射到本地。
+开启端口映射
 
 ![alt text](./images/port.png)
 
@@ -130,7 +129,7 @@ streamlit run /root/demo/Tutorial/tools/streamlit_demo.py --server.address 127.0
 ## LMDeploy 部署 InternLM-XComposer2-VL-1.8B 模型
 
 
-首先，激活环境并安装 LMDeploy 以及其他依赖。
+激活环境并安装 LMDeploy 以及其他依赖。
 
 ```bash
 conda activate demo
